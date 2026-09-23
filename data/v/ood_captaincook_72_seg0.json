@@ -1,0 +1,106 @@
+{
+ "clips": [
+  {
+   "axes": {},
+   "bytes": 659923,
+   "duration_s": 6.673,
+   "path": "context/ood_captaincook_72_seg0.mp4",
+   "role": "context",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {},
+   "bytes": 1877096,
+   "duration_s": 13.036,
+   "path": "groundtruth/ood_captaincook_72_seg0.mp4",
+   "role": "groundtruth",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 1574629,
+   "duration_s": 19.833,
+   "path": "closed/pixverse/detection/ood_captaincook_72_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 1970558,
+   "duration_s": 19.833,
+   "path": "closed/pixverse/zero_shot/ood_captaincook_72_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 8177829,
+   "duration_s": 13.026,
+   "path": "closed/wan27/detection/ood_captaincook_72_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 10565267,
+   "duration_s": 13.026,
+   "path": "closed/wan27/zero_shot/ood_captaincook_72_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 7375409,
+   "duration_s": 18.938,
+   "path": "wan22/anticipation_text/baseline/it1/ood_captaincook_72_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 7426619,
+   "duration_s": 18.938,
+   "path": "wan22/anticipation_text/tedio-bachvid-memalign/it1/ood_captaincook_72_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_combined",
+    "cs_anticipation"
+   ],
+   "system": "wan22"
+  }
+ ],
+ "dataset": "captaincook",
+ "id": "ood_captaincook_72_seg0",
+ "max_duration_s": 19.833
+}

@@ -1,0 +1,414 @@
+{
+ "clips": [
+  {
+   "axes": {},
+   "bytes": 756929,
+   "duration_s": 5.572,
+   "path": "context/ood_captaincook_51_seg1.mp4",
+   "role": "context",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {},
+   "bytes": 1468754,
+   "duration_s": 8.917,
+   "path": "groundtruth/ood_captaincook_51_seg1.mp4",
+   "role": "groundtruth",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 1679602,
+   "duration_s": 14.722,
+   "path": "closed/pixverse/detection/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 1795153,
+   "duration_s": 14.722,
+   "path": "closed/pixverse/zero_shot/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 8109390,
+   "duration_s": 9.032,
+   "path": "closed/wan27/detection/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 7534482,
+   "duration_s": 9.032,
+   "path": "closed/wan27/zero_shot/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 8236209,
+   "duration_s": 20.062,
+   "path": "wan22/anticipation_text/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 8254309,
+   "duration_s": 20.062,
+   "path": "wan22/anticipation_text/tedio-bachvid-memalign/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_combined",
+    "cs_anticipation"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "cinematic",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 8492939,
+   "duration_s": 20.062,
+   "path": "wan22/cinematic/tedio-bachvid-memalign/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot",
+    "cs_cinematic"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "detection_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 8607877,
+   "duration_s": 20.062,
+   "path": "wan22/detection_text/tedio-bachvid-memalign/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned",
+    "cs_detection"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "event_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 8550997,
+   "duration_s": 20.062,
+   "path": "wan22/event_text/tedio-bachvid-memalign/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_event"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "interaction_chunked",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 8490366,
+   "duration_s": 20.062,
+   "path": "wan22/interaction_chunked/tedio-bachvid-memalign/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_interaction"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "sg_chunked",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 8369114,
+   "duration_s": 20.062,
+   "path": "wan22/sg_chunked/tedio-bachvid-memalign/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_sg"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 1514657,
+   "duration_s": 20.083,
+   "path": "cosmos3/anticipation_text/all/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_anticipation"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 6890169,
+   "duration_s": 20.083,
+   "path": "cosmos3/anticipation_text/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "cinematic",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 1361192,
+   "duration_s": 20.083,
+   "path": "cosmos3/cinematic/all/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot",
+    "cs_cinematic"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "cinematic",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 6688009,
+   "duration_s": 20.083,
+   "path": "cosmos3/cinematic/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "detection_text",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 1289310,
+   "duration_s": 20.083,
+   "path": "cosmos3/detection_text/all/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned",
+    "cs_detection"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "detection_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 5950110,
+   "duration_s": 20.083,
+   "path": "cosmos3/detection_text/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "event_text",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 1274729,
+   "duration_s": 20.083,
+   "path": "cosmos3/event_text/all/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_event"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "event_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 6448179,
+   "duration_s": 20.083,
+   "path": "cosmos3/event_text/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "interaction_chunked",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 1211968,
+   "duration_s": 20.083,
+   "path": "cosmos3/interaction_chunked/all/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_interaction"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "interaction_chunked",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 6317871,
+   "duration_s": 20.083,
+   "path": "cosmos3/interaction_chunked/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "sg_chunked",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 1442915,
+   "duration_s": 20.083,
+   "path": "cosmos3/sg_chunked/all/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_sg"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "sg_chunked",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 6778323,
+   "duration_s": 20.083,
+   "path": "cosmos3/sg_chunked/baseline/it1/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "variant": "all"
+   },
+   "bytes": 6475628,
+   "duration_s": 20.083,
+   "path": "cosmos3_plugin/all/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_combined"
+   ],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "bachvid"
+   },
+   "bytes": 6761938,
+   "duration_s": 20.083,
+   "path": "cosmos3_plugin/bachvid/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "baseline"
+   },
+   "bytes": 6688009,
+   "duration_s": 20.083,
+   "path": "cosmos3_plugin/baseline/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "memalign_diagnose"
+   },
+   "bytes": 6688009,
+   "duration_s": 20.083,
+   "path": "cosmos3_plugin/memalign_diagnose/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_memalign"
+   ],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "tedio"
+   },
+   "bytes": 6449436,
+   "duration_s": 20.083,
+   "path": "cosmos3_plugin/tedio/ood_captaincook_51_seg1.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_tedio"
+   ],
+   "system": "cosmos3_plugin"
+  }
+ ],
+ "dataset": "captaincook",
+ "id": "ood_captaincook_51_seg1",
+ "max_duration_s": 20.083
+}

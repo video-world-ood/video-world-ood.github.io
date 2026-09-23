@@ -1,0 +1,403 @@
+{
+ "clips": [
+  {
+   "axes": {},
+   "bytes": 171588,
+   "duration_s": 2.236,
+   "path": "context/ood_oops_4533_seg0.mp4",
+   "role": "context",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {},
+   "bytes": 455250,
+   "duration_s": 2.958,
+   "path": "groundtruth/ood_oops_4533_seg0.mp4",
+   "role": "groundtruth",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 471727,
+   "duration_s": 5.411,
+   "path": "closed/pixverse/detection/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 571109,
+   "duration_s": 5.411,
+   "path": "closed/pixverse/zero_shot/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 1009898,
+   "duration_s": 3.018,
+   "path": "closed/wan27/detection/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 965985,
+   "duration_s": 3.018,
+   "path": "closed/wan27/zero_shot/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 972720,
+   "duration_s": 2.812,
+   "path": "wan22/anticipation_text/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 972720,
+   "duration_s": 2.812,
+   "path": "wan22/anticipation_text/tedio-bachvid-memalign/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_combined",
+    "cs_anticipation"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "cinematic",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 972068,
+   "duration_s": 2.812,
+   "path": "wan22/cinematic/tedio-bachvid-memalign/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot",
+    "cs_cinematic"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "detection_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 979608,
+   "duration_s": 2.812,
+   "path": "wan22/detection_text/tedio-bachvid-memalign/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned",
+    "cs_detection"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "event_text",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 978468,
+   "duration_s": 2.812,
+   "path": "wan22/event_text/tedio-bachvid-memalign/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_event"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "interaction_chunked",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 974860,
+   "duration_s": 2.812,
+   "path": "wan22/interaction_chunked/tedio-bachvid-memalign/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_interaction"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "sg_chunked",
+    "iteration": "1",
+    "variant": "tedio+bachvid+memalign"
+   },
+   "bytes": 983004,
+   "duration_s": 2.812,
+   "path": "wan22/sg_chunked/tedio-bachvid-memalign/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_sg"
+   ],
+   "system": "wan22"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 144253,
+   "duration_s": 2.75,
+   "path": "cosmos3/anticipation_text/all/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_anticipation"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "anticipation_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 842438,
+   "duration_s": 2.75,
+   "path": "cosmos3/anticipation_text/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "cinematic",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 148562,
+   "duration_s": 2.75,
+   "path": "cosmos3/cinematic/all/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot",
+    "cs_cinematic"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "cinematic",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 868166,
+   "duration_s": 2.75,
+   "path": "cosmos3/cinematic/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "detection_text",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 144768,
+   "duration_s": 2.75,
+   "path": "cosmos3/detection_text/all/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned",
+    "cs_detection"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "detection_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 839901,
+   "duration_s": 2.75,
+   "path": "cosmos3/detection_text/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "event_text",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 144675,
+   "duration_s": 2.75,
+   "path": "cosmos3/event_text/all/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_event"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "event_text",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 832996,
+   "duration_s": 2.75,
+   "path": "cosmos3/event_text/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "interaction_chunked",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 144064,
+   "duration_s": 2.75,
+   "path": "cosmos3/interaction_chunked/all/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_interaction"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "interaction_chunked",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 785896,
+   "duration_s": 2.75,
+   "path": "cosmos3/interaction_chunked/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "sg_chunked",
+    "iteration": "1",
+    "variant": "all"
+   },
+   "bytes": 143841,
+   "duration_s": 2.75,
+   "path": "cosmos3/sg_chunked/all/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "cs_sg"
+   ],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "conditioning": "sg_chunked",
+    "iteration": "1",
+    "variant": "baseline"
+   },
+   "bytes": 845190,
+   "duration_s": 2.75,
+   "path": "cosmos3/sg_chunked/baseline/it1/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3"
+  },
+  {
+   "axes": {
+    "variant": "all"
+   },
+   "bytes": 868166,
+   "duration_s": 2.75,
+   "path": "cosmos3_plugin/all/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_combined"
+   ],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "baseline"
+   },
+   "bytes": 868166,
+   "duration_s": 2.75,
+   "path": "cosmos3_plugin/baseline/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "memalign_diagnose"
+   },
+   "bytes": 868166,
+   "duration_s": 2.75,
+   "path": "cosmos3_plugin/memalign_diagnose/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_memalign"
+   ],
+   "system": "cosmos3_plugin"
+  },
+  {
+   "axes": {
+    "variant": "tedio"
+   },
+   "bytes": 868166,
+   "duration_s": 2.75,
+   "path": "cosmos3_plugin/tedio/ood_oops_4533_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "mv_tedio"
+   ],
+   "system": "cosmos3_plugin"
+  }
+ ],
+ "dataset": "oops",
+ "id": "ood_oops_4533_seg0",
+ "max_duration_s": 5.411
+}

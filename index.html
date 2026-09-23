@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Video continuation comparison</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127909;</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Shown until index.json has parsed. -->
+<div id="loading" class="panel">
+  <div class="spinner" aria-hidden="true"></div>
+  <p>Loading&hellip;</p>
+</div>
+
+<div id="error" class="panel" hidden>
+  <h1>Something went wrong</h1>
+  <p id="error-text"></p>
+</div>
+
+<div id="app" hidden>
+
+  <header class="topbar">
+    <div class="topbar-title">
+      <h1 id="site-title">Video continuation comparison</h1>
+      <p id="site-desc" class="muted small">Every continuation of one segment, playing together.</p>
+    </div>
+    <div class="topbar-actions">
+      <span id="copy-note" class="copy-note" role="status" hidden></span>
+      <button type="button" class="btn" id="copy-link" title="Copy a link to this exact view">Copy link</button>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ---- segment picker ------------------------------------------- -->
+    <aside class="sidebar">
+      <!-- Top third: choose a segment. Bottom two thirds: the reference clips
+           for the segment chosen, which belong beside the generated ones
+           rather than above them -- a viewer compares against the real
+           continuation constantly, and scrolling the grid used to carry it off
+           screen. -->
+      <div class="sidebar-picker">
+        <label class="sr-only" for="seg-search">Search segments</label>
+        <input type="search" id="seg-search" placeholder="Search segments&hellip;"
+               autocomplete="off" spellcheck="false">
+        <label class="sr-only" for="seg-dataset">Dataset</label>
+        <select id="seg-dataset">
+          <option value="">All datasets</option>
+        </select>
+        <p id="seg-count" class="muted small seg-count"></p>
+        <div id="seg-list" class="seg-list"></div>
+      </div>
+
+      <section id="pinned-wrap" class="pinned-wrap" hidden>
+        <h3 class="section-label">Reference</h3>
+        <div id="pinned-strip" class="pinned-strip"></div>
+      </section>
+    </aside>
+
+    <!-- ---- the comparison ------------------------------------------- -->
+    <main>
+
+      <div class="segment-head">
+        <h2 id="segment-title"></h2>
+        <p id="segment-meta" class="muted small"></p>
+      </div>
+
+      <!-- One tab per declared row section. The three comparisons ask
+           different questions of different model sets, and stacking them in
+           one scroll made the page read as a single very long table; a tab
+           keeps one question, and its column set, on screen at a time. -->
+      <nav id="tabs" class="tabs" role="tablist" aria-label="Comparison" hidden></nav>
+      <p id="tab-note" class="tab-note" hidden></p>
+
+      <!-- One transport for every clip on screen. Sticky, because the grid is
+           taller than the window and the controls must stay reachable. -->
+      <div class="transport">
+        <button type="button" class="btn primary" id="t-play" title="Play all (Space)">
+          <span aria-hidden="true">&#9654;</span> Play all
+        </button>
+        <button type="button" class="btn primary" id="t-pause" title="Pause all (Space)" hidden>
+          <span aria-hidden="true">&#10074;&#10074;</span> Pause
+        </button>
+        <button type="button" class="btn" id="t-restart" title="Restart and re-sync (R)">Restart</button>
+
+        <input type="range" id="t-scrub" min="0" max="1000" value="0" step="1"
+               aria-label="Seek all clips">
+        <span id="t-time" class="time muted small">&ndash;</span>
+
+        <label class="toggle" title="Loop every clip">
+          <input type="checkbox" id="t-loop" checked><span>Loop</span>
+        </label>
+
+
+        <span id="t-budget" class="budget muted small"></span>
+      </div>
+
+      <div id="filters" class="filters"></div>
+
+      <div id="grid-wrap"></div>
+
+      <p id="empty" class="notice" hidden>Choose a segment on the left to begin.</p>
+
+    </main>
+  </div>
+</div>
+
+<!-- Enlarge one clip. Native controls here only: this is the one place where
+     scrubbing a single clip on its own is the point. -->
+<dialog id="zoom" class="zoom">
+  <div class="zoom-bar">
+    <span id="zoom-title"></span>
+    <button type="button" class="btn" id="zoom-close">Close</button>
+  </div>
+  <video id="zoom-video" muted playsinline controls disablepictureinpicture></video>
+</dialog>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

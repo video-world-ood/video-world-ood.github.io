@@ -1,0 +1,77 @@
+{
+ "clips": [
+  {
+   "axes": {},
+   "bytes": 240671,
+   "duration_s": 2.402,
+   "path": "context/ood_oops_8693_seg0.mp4",
+   "role": "context",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {},
+   "bytes": 444808,
+   "duration_s": 3.948,
+   "path": "groundtruth/ood_oops_8693_seg0.mp4",
+   "role": "groundtruth",
+   "rows": [],
+   "system": null
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 749833,
+   "duration_s": 6.595,
+   "path": "closed/pixverse/detection/ood_oops_8693_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 915711,
+   "duration_s": 6.595,
+   "path": "closed/pixverse/zero_shot/ood_oops_8693_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "pixverse"
+  },
+  {
+   "axes": {
+    "setting": "detection"
+   },
+   "bytes": 1770515,
+   "duration_s": 4.04,
+   "path": "closed/wan27/detection/ood_oops_8693_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "detection_conditioned"
+   ],
+   "system": "wan27"
+  },
+  {
+   "axes": {
+    "setting": "zero_shot"
+   },
+   "bytes": 2133216,
+   "duration_s": 4.04,
+   "path": "closed/wan27/zero_shot/ood_oops_8693_seg0.mp4",
+   "role": "generated",
+   "rows": [
+    "zero_shot"
+   ],
+   "system": "wan27"
+  }
+ ],
+ "dataset": "oops",
+ "id": "ood_oops_8693_seg0",
+ "max_duration_s": 6.595
+}

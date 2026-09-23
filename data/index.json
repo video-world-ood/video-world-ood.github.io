@@ -1,0 +1,7057 @@
+{
+ "axis_values": {
+  "conditioning": [
+   "cinematic",
+   "anticipation_text",
+   "detection_text",
+   "event_text",
+   "interaction_chunked",
+   "sg_chunked"
+  ],
+  "iteration": [
+   "1"
+  ],
+  "setting": [
+   "zero_shot",
+   "detection"
+  ],
+  "variant": [
+   "baseline",
+   "all",
+   "tedio",
+   "bachvid",
+   "memalign_diagnose",
+   "tedio+bachvid",
+   "tedio+ug_future",
+   "tedio+bachvid+memalign",
+   "tedio+bachvid+memalign+ug_future",
+   "tedio+bachvid+memalign+intent_align"
+  ]
+ },
+ "datasets": [
+  {
+   "id": "oops",
+   "label": "Oops",
+   "n_segments": 514
+  },
+  {
+   "id": "captaincook",
+   "label": "CaptainCook",
+   "n_segments": 66
+  }
+ ],
+ "generated_utc": "2026-09-20T20:57:10Z",
+ "labels": {
+  "axis": {
+   "conditioning": "Conditioning",
+   "iteration": "Run",
+   "setting": "Setting",
+   "variant": "Method variant"
+  },
+  "conditioning": {
+   "anticipation_text": "Anticipation text",
+   "cinematic": "Cinematic prompt",
+   "detection_text": "Detection text",
+   "event_text": "Event text",
+   "interaction_chunked": "Interaction (chunked)",
+   "sg_chunked": "Scene graph (chunked)"
+  },
+  "iteration": {
+   "1": "Run 1"
+  },
+  "role": {
+   "context": "Context",
+   "generated": "Generated continuation",
+   "groundtruth": "Real continuation"
+  },
+  "setting": {
+   "detection": "Detection-conditioned",
+   "zero_shot": "Zero-shot"
+  },
+  "system": {
+   "cosmos3": "Cosmos 3",
+   "cosmos3_plugin": "Cosmos 3 (component study)",
+   "pixverse": "PixVerse",
+   "wan22": "Wan 2.2",
+   "wan27": "Wan 2.7"
+  },
+  "variant": {
+   "all": "All components",
+   "bachvid": "BachVid",
+   "baseline": "Baseline",
+   "memalign_diagnose": "MemAlignTTO",
+   "tedio": "TeDiO",
+   "tedio+bachvid": "TeDiO + BachVid",
+   "tedio+bachvid+memalign": "TeDiO + BachVid + MemAlignTTO",
+   "tedio+bachvid+memalign+intent_align": "TeDiO + BachVid + MemAlignTTO + IntentAlign",
+   "tedio+bachvid+memalign+ug_future": "TeDiO + BachVid + MemAlignTTO + UG-Future",
+   "tedio+ug_future": "TeDiO + UG-Future"
+  }
+ },
+ "row_sections": [
+  {
+   "id": "overall",
+   "label": "All models",
+   "note": "The same two tasks posed to every model. Closed models are prompted directly; open models run their full component stack, taking the cinematic prompt for zero-shot and the detection text for the detection-conditioned row.",
+   "rows": [
+    {
+     "id": "zero_shot",
+     "label": "Zero-shot",
+     "systems": [
+      "pixverse",
+      "wan27",
+      "wan22",
+      "cosmos3"
+     ]
+    },
+    {
+     "id": "detection_conditioned",
+     "label": "Detection-conditioned",
+     "systems": [
+      "pixverse",
+      "wan27",
+      "wan22",
+      "cosmos3"
+     ]
+    }
+   ],
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3"
+   ]
+  },
+  {
+   "id": "method",
+   "label": "Method components",
+   "note": "Components varied, conditioning held fixed. Wan 2.2 stacks its components cumulatively, so it has no MemAlignTTO-only arm; Cosmos 3 has no UG-Future arm. Those cells are blank because the run does not exist.",
+   "rows": [
+    {
+     "id": "mv_tedio",
+     "label": "TeDiO",
+     "systems": [
+      "wan22",
+      "cosmos3_plugin"
+     ]
+    },
+    {
+     "id": "mv_memalign",
+     "label": "MemAlignTTO",
+     "systems": [
+      "cosmos3_plugin"
+     ]
+    },
+    {
+     "id": "mv_combined",
+     "label": "Combined",
+     "systems": [
+      "wan22",
+      "cosmos3_plugin"
+     ]
+    },
+    {
+     "id": "mv_combined_ug",
+     "label": "Combined + UG-Future",
+     "systems": [
+      "wan22"
+     ]
+    }
+   ],
+   "systems": [
+    "wan22",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "id": "conditioning_signal",
+   "label": "Conditioning signal",
+   "note": "Prompt varied with the full component stack held fixed on both models.",
+   "rows": [
+    {
+     "id": "cs_cinematic",
+     "label": "Cinematic prompt",
+     "systems": [
+      "wan22",
+      "cosmos3"
+     ]
+    },
+    {
+     "id": "cs_anticipation",
+     "label": "Anticipation text",
+     "systems": [
+      "wan22",
+      "cosmos3"
+     ]
+    },
+    {
+     "id": "cs_detection",
+     "label": "Detection text",
+     "systems": [
+      "wan22",
+      "cosmos3"
+     ]
+    },
+    {
+     "id": "cs_event",
+     "label": "Event text",
+     "systems": [
+      "wan22",
+      "cosmos3"
+     ]
+    },
+    {
+     "id": "cs_interaction",
+     "label": "Interaction (chunked)",
+     "systems": [
+      "wan22",
+      "cosmos3"
+     ]
+    },
+    {
+     "id": "cs_sg",
+     "label": "Scene graph (chunked)",
+     "systems": [
+      "wan22",
+      "cosmos3"
+     ]
+    }
+   ],
+   "systems": [
+    "wan22",
+    "cosmos3"
+   ]
+  }
+ ],
+ "segments": [
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_103_seg0",
+   "n_clips": 35,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_10_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_112_seg0",
+   "n_clips": 35,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_116_seg0",
+   "n_clips": 35,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_116_seg1",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_118_seg0",
+   "n_clips": 35,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_120_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_121_seg0",
+   "n_clips": 35,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_121_seg1",
+   "n_clips": 35,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_123_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_125_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_136_seg0",
+   "n_clips": 31,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_139_seg0",
+   "n_clips": 31,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_139_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_140_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_146_seg0",
+   "n_clips": 13,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_146_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_160_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_160_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_160_seg4",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_161_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_162_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_164_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_166_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_168_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_176_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_179_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_180_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_183_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_187_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_190_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_192_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_194_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_199_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_200_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_200_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_204_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_204_seg2",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_210_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_211_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_211_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_212_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_22_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_26_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_38_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_3_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_42_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_51_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_56_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_56_seg1",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_60_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_61_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_62_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_6_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_71_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_72_seg0",
+   "n_clips": 8,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_79_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_81_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_81_seg1",
+   "n_clips": 8,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_82_seg0",
+   "n_clips": 8,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_83_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_84_seg1",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_84_seg2",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_86_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_96_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "captaincook",
+   "id": "ood_captaincook_9_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1004_seg0",
+   "n_clips": 30,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_10209_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1021_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1029_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_10452_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1048_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1050_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1051_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1058_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_105_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1068_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1076_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_107_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11005_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11030_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11069_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11073_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11093_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_110_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11148_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11231_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_112_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11327_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11460_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_115_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11700_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11744_seg0",
+   "n_clips": 24,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11758_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_11776_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_117_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1194_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1210_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_122_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_12392_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_12450_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1248_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_124_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1255_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1266_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_12672_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1295_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1296_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1299_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_129_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_12_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1300_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1301_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_13058_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1307_seg1",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_130_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1313_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_132_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_13339_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1343_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_13491_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1355_seg0",
+   "n_clips": 24,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_135_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1361_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_136_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_13765_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1379_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_137_seg0",
+   "n_clips": 33,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1389_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_138_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1393_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_13956_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_14062_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_14065_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_14070_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1414_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_14171_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1417_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_14181_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_143_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1445_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1449_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_144_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1462_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_147_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1481_seg0",
+   "n_clips": 26,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_149_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15053_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15084_seg0",
+   "n_clips": 24,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15098_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1518_seg0",
+   "n_clips": 32,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_151_seg0",
+   "n_clips": 34,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15214_seg0",
+   "n_clips": 31,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1532_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15354_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1535_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15374_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15377_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_153_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1554_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1554_seg1",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15653_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15659_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_157_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_158_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1596_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_15_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1601_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1613_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_16233_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_16237_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_162_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_16392_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1647_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_165_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_16646_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1666_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1667_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_166_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1671_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_16723_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1688_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1713_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1718_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_17253_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_172_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_17457_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1746_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_174_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_17757_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_17852_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1790_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1792_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_17_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18060_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18231_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1841_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18446_seg0",
+   "n_clips": 19,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18451_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1860_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18632_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18682_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_18688_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1891_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1903_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_191_seg0",
+   "n_clips": 27,
+   "systems": [
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_19296_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_1945_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_19869_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_19970_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2002_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20053_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2006_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20076_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2013_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2016_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20327_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2034_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2044_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2046_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2060_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20639_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20718_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2073_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20857_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20986_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_20_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2105_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2118_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2123_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_21253_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_21253_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_212_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2162_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2172_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_21783_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_217_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2195_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_21998_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_21_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2205_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2217_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22186_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2221_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22239_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2231_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22357_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2246_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22487_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2250_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22513_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22553_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22573_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22573_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22573_seg2",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22643_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22659_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22676_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22715_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2272_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2273_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2274_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22839_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22852_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_228_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22938_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2295_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_22_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2307_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23084_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23084_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_230_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2321_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23251_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2349_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_235_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2360_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23615_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2365_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2374_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23872_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23930_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_23_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_24218_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_24260_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2428_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2433_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2437_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2447_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2458_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2481_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2494_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_24_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25044_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2504_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2513_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2519_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25200_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2520_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2521_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2526_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2530_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25353_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25382_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_253_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2545_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2546_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25551_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25637_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25637_seg1",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25653_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25653_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_257_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25832_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2585_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25981_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_259_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_25_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2608_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2611_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_26174_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_26223_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2624_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2627_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_26424_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_26589_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_26661_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_266_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2676_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_267_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2684_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2688_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_26_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_27154_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_27229_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_27229_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2740_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_27606_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2794_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2798_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_27_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2804_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2830_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_28484_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2855_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_28649_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_28741_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_28997_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_289_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2908_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29093_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2909_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29142_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29142_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29287_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29338_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2941_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29674_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29680_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29695_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_2971_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29835_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29846_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29866_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29886_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_298_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_299_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_29_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3001_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3016_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3023_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3037_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3040_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_304_seg0",
+   "n_clips": 25,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3052_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3056_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3057_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3060_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3068_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3068_seg2",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3079_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3083_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_30_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3110_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3137_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_313_seg0",
+   "n_clips": 25,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3145_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3156_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3228_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_32_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3303_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3306_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3345_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3346_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_338_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_33_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3401_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3479_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3479_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_34_seg0",
+   "n_clips": 21,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3512_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3593_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3643_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3644_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_364_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3684_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3699_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_369_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3735_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3772_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3776_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3839_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_38_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3904_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3972_seg0",
+   "n_clips": 23,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_3976_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4039_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4068_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4124_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4149_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4153_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4176_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4255_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4285_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4293_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4298_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4308_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4316_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4331_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4362_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4362_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4362_seg2",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4382_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4386_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4390_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4415_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4418_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4432_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4444_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4498_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4506_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4533_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4694_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4704_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4728_seg0",
+   "n_clips": 23,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4752_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4755_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4772_seg0",
+   "n_clips": 25,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4773_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_4805_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5079_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5104_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5177_seg0",
+   "n_clips": 28,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_517_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5181_seg1",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5191_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5269_seg1",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5286_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_539_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5449_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_544_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5503_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5507_seg0",
+   "n_clips": 19,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5553_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5562_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_556_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5588_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5597_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5609_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5626_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5635_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5639_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5648_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5693_seg0",
+   "n_clips": 25,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5705_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5724_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_572_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5833_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5906_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5922_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5956_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5959_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_5968_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6018_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6044_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6054_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_608_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_610_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_615_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6169_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6184_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6185_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6200_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6214_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6215_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6267_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6281_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_62_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6343_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6361_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6364_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6369_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6378_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6384_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6398_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6419_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6422_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6430_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6447_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_64_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_650_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6570_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6604_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6622_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6636_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6655_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_680_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_6846_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_68_seg0",
+   "n_clips": 19,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7074_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7136_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7166_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_727_seg0",
+   "n_clips": 25,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7313_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_734_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_735_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7374_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7377_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_738_seg1",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_739_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_752_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7606_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_760_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_762_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_767_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7867_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_78_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_7_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8006_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8018_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8315_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8325_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8341_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8347_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_83_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8445_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_853_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8646_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8667_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8693_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8698_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8714_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8874_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8956_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_8_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_903_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9096_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9111_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9166_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_916_seg0",
+   "n_clips": 25,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9173_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9218_seg0",
+   "n_clips": 6,
+   "systems": [
+    "pixverse",
+    "wan27"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9221_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_927_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9326_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9336_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9382_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_93_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9458_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9461_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_94_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_959_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_961_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_965_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_973_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_977_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_97_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9905_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_99_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  },
+  {
+   "dataset": "oops",
+   "id": "ood_oops_9_seg0",
+   "n_clips": 29,
+   "systems": [
+    "pixverse",
+    "wan27",
+    "wan22",
+    "cosmos3",
+    "cosmos3_plugin"
+   ]
+  }
+ ],
+ "site": {
+  "description": "Side-by-side continuations of the same segment across models and conditioning settings.",
+  "title": "Video continuation comparison"
+ },
+ "systems": [
+  {
+   "axes": [
+    "setting"
+   ],
+   "family": "closed",
+   "id": "pixverse",
+   "label": "PixVerse"
+  },
+  {
+   "axes": [
+    "setting"
+   ],
+   "family": "closed",
+   "id": "wan27",
+   "label": "Wan 2.7"
+  },
+  {
+   "axes": [
+    "conditioning",
+    "variant",
+    "iteration"
+   ],
+   "family": "open",
+   "id": "wan22",
+   "label": "Wan 2.2"
+  },
+  {
+   "axes": [
+    "conditioning",
+    "variant",
+    "iteration"
+   ],
+   "family": "open",
+   "id": "cosmos3",
+   "label": "Cosmos 3"
+  },
+  {
+   "axes": [
+    "variant"
+   ],
+   "family": "open",
+   "id": "cosmos3_plugin",
+   "label": "Cosmos 3 (component study)"
+  }
+ ],
+ "version": 1,
+ "video_base": "https://huggingface.co/datasets/video-world-ood/videos/resolve/main/"
+}

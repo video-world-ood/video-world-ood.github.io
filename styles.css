@@ -1,0 +1,1224 @@
+/* ---------------------------------------------------------------------------
+   Video continuation comparison -- viewer-facing styling.
+
+   Same visual language as the human-evaluation site: one neutral surface, one
+   accent, system fonts only, light and dark from the same token set. Nothing
+   is loaded from a network other than the video host.
+
+   The grid is the whole page, so most of the budget goes to making a sparse
+   5-wide, 12-tall matrix legible at 1366px: small type in the headers, a
+   sticky row-label column, and a visually loud "not available" cell so gaps
+   read as findings rather than layout bugs.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #eef0f4;
+  --border: #d9dde5;
+  --text: #14181f;
+  --text-muted: #5c6675;
+  --accent: #2f5bd0;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e5ebfb;
+  --ok: #1c7c4a;
+  --warn: #9a6300;
+  --radius: 10px;
+  --radius-sm: 7px;
+  --shadow: 0 1px 2px rgba(16, 22, 34, .06), 0 6px 20px rgba(16, 22, 34, .06);
+
+  --sidebar-w: 244px;
+  --rowhead-w: 132px;
+  --cell-min: 150px;
+  --gap: 6px;
+
+  /* A video cell may never be taller than this share of the window. The grid
+     is a comparison, and a comparison you have to scroll a single row of is
+     not one -- on a wide, short window a 16:9 cell stretched by a two-column
+     section would otherwise stand taller than the screen. The cap is applied
+     to the COLUMN, not to the video, so the clip keeps its aspect ratio and
+     the row simply stops growing. --frame-max-h takes the caption bar off the
+     top so the whole cell, not just its picture, honours the 70%. */
+  --cell-max-h: 70vh;
+  --frame-max-h: calc(var(--cell-max-h) - 2.6rem);
+
+  /* ---- the design system -------------------------------------------------
+     These are shared with the annotation page, which loads this file first.
+     Everything visual on both pages is built from this handful of values, so
+     the two read as one product rather than as a tool and a demo that happen
+     to sit next to each other.
+
+     THREE RADII, used consistently: r1 for something inside a row, r2 for a
+     panel or a piece of media, r3 for something floating above the page. */
+  --r1: 6px;
+  --r2: 11px;
+  --r3: 16px;
+
+  /* One height for every button, select and search field in the page chrome.
+     Rows of mismatched control heights are the single thing that makes an
+     interface read as unfinished. The annotation page lowers this: the review
+     screen is a dense instrument and the browsing chrome is not. */
+  --ctl-h: 2rem;
+
+  /* Hairlines. A full-strength border on every small control is what makes a
+     control-dense page noisy; most separators want to be half of one, and
+     --border stays for the places that genuinely need the weight. */
+  --hair: #e2e6ed;
+  --hair-strong: #d2d8e2;
+
+  /* Two elevations: panels sit on the first, anything floating on the second. */
+  --sh-1: 0 1px 2px rgba(16, 22, 34, .05);
+  --sh-2: 0 1px 3px rgba(16, 22, 34, .08), 0 18px 48px rgba(16, 22, 34, .16);
+
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* ---- dark -------------------------------------------------------------
+   THE SAME DECLARATIONS, TWICE, ON PURPOSE. Keep the two lists identical.
+
+   The media query is the default: with no choice stored, the page follows the
+   operating system and keeps following it when the system flips at sunset.
+   `:not([data-theme="light"])` is what lets a person who has explicitly asked
+   for light keep it on a dark machine.
+
+   The attribute rule is the manual override, and it has to live outside the
+   media query -- which is the whole reason for the duplication. CSS has no way
+   to apply one declaration block from two contexts, and the alternatives
+   (nesting, a preprocessor, `light-dark()`) each cost more than a second copy
+   of sixteen lines does. A value that drifts between the two shows up the
+   first time anyone presses the toggle. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1216;
+    --surface: #171b21;
+    --surface-2: #1f242c;
+    --border: #2c333d;
+    --text: #e8ecf2;
+    --text-muted: #98a2b3;
+    --accent: #6f95f5;
+    --accent-contrast: #0f1216;
+    --accent-soft: #1e2740;
+    --ok: #56c98a;
+    --warn: #e0a740;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .35);
+
+    --hair: #262d37;
+    --hair-strong: #333b47;
+    --sh-1: 0 1px 2px rgba(0, 0, 0, .35);
+    --sh-2: 0 1px 3px rgba(0, 0, 0, .5), 0 18px 48px rgba(0, 0, 0, .55);
+  }
+}
+:root[data-theme="dark"] {
+    --bg: #0f1216;
+    --surface: #171b21;
+    --surface-2: #1f242c;
+    --border: #2c333d;
+    --text: #e8ecf2;
+    --text-muted: #98a2b3;
+    --accent: #6f95f5;
+    --accent-contrast: #0f1216;
+    --accent-soft: #1e2740;
+    --ok: #56c98a;
+    --warn: #e0a740;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .35);
+
+    --hair: #262d37;
+    --hair-strong: #333b47;
+    --sh-1: 0 1px 2px rgba(0, 0, 0, .35);
+    --sh-2: 0 1px 3px rgba(0, 0, 0, .5), 0 18px 48px rgba(0, 0, 0, .55);
+}
+
+/* Native widgets -- range thumbs, scrollbars, select popups, the video
+   controls in the enlarge dialog -- are drawn by the user agent against this
+   hint. Without it a dark page gets light grey furniture bolted into it.
+
+   It has to follow the chosen theme, not just the system one: a page forced
+   light on a dark machine would otherwise get dark scrollbars and a dark range
+   thumb bolted into a white page. */
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+/* Motion confirms that a press was received. Nothing else, and none of it for
+   anyone who has asked not to see it. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* Thin scrollbars wherever something scrolls inside a panel. A 15px OS
+   scrollbar inside a 244px sidebar is 6% of the sidebar. */
+.seg-list, .pinned-strip, .grid-wrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hair-strong) transparent;
+}
+.seg-list::-webkit-scrollbar,
+.pinned-strip::-webkit-scrollbar,
+.grid-wrap::-webkit-scrollbar { width: 9px; height: 9px; }
+.seg-list::-webkit-scrollbar-thumb,
+.pinned-strip::-webkit-scrollbar-thumb,
+.grid-wrap::-webkit-scrollbar-thumb {
+  background: var(--hair-strong);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1 { font-size: 1.15rem; margin: 0; font-weight: 700; letter-spacing: -.015em; }
+h2 { font-size: 1.05rem; margin: 0; font-family: var(--mono); letter-spacing: -.02em; }
+h3 { font-size: .95rem; margin: 0; }
+p { margin: 0; }
+
+.muted { color: var(--text-muted); }
+.small { font-size: .8rem; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* --- panels (loading / fatal error) ------------------------------------- */
+
+.panel {
+  max-width: 34rem;
+  margin: 5rem auto;
+  padding: 1.9rem;
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: var(--r3);
+  box-shadow: var(--sh-2);
+  text-align: center;
+}
+.panel[hidden] { display: none; }
+
+.spinner {
+  width: 24px; height: 24px; margin: 0 auto .8rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.notice {
+  padding: 2.5rem 1.5rem;
+  font-size: .9rem;
+  color: var(--text-muted);
+  text-align: center;
+  border: 1px dashed var(--hair-strong);
+  border-radius: var(--r2);
+  background: var(--surface);
+}
+
+/* --- chrome ------------------------------------------------------------- */
+
+/* The masthead. Translucent rather than opaque so the grid scrolling under it
+   is visible as movement -- a solid bar makes a long page feel like it has a
+   lid on it -- with a blur so the text over it stays legible. */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .6rem 1.1rem;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(12px) saturate(1.4);
+  border-bottom: 1px solid var(--hair);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .topbar { background: var(--surface); }
+}
+.topbar-title { min-width: 0; flex: 1; }
+.topbar-title p { margin-top: .12rem; }
+.topbar-actions { display: flex; align-items: center; gap: .5rem; }
+
+.copy-note {
+  font-size: .8rem;
+  color: var(--ok);
+  font-weight: 600;
+}
+.copy-note[hidden] { display: none; }
+
+/* Fallback when the browser refuses to write to the clipboard: the link,
+   selected, so "copy it yourself" is actually possible. */
+.copy-fallback {
+  font: inherit;
+  font-size: .75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  width: 22rem;
+  max-width: 40vw;
+  padding: .25rem .4rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+/* One button. A brightness filter was doing the hover before, which washes
+   out a filled button instead of emphasising it; the surface and the border
+   move instead, and the accent ones grow a soft ring. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 600;
+  height: var(--ctl-h);
+  padding: 0 .85rem;
+  border-radius: var(--r1);
+  border: 1px solid var(--hair);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color .13s ease, border-color .13s ease,
+              color .13s ease, box-shadow .13s ease;
+}
+.btn:hover:not(:disabled) { border-color: var(--hair-strong); background: var(--surface); }
+.btn:active:not(:disabled) { transform: translateY(.5px); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-color: transparent;
+}
+.btn.primary:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.btn[hidden] { display: none; }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+
+/* --- layout ------------------------------------------------------------- */
+
+.layout {
+  display: grid;
+  /* 30 / 70. Both tracks get minmax(0, ...) or a wide grid cell refuses to
+     shrink and the page grows a horizontal scrollbar. --sidebar-w survives as
+     the floor, so the picker never collapses to unusable width. */
+  grid-template-columns: minmax(var(--sidebar-w), 30fr) minmax(0, 70fr);
+  gap: 1rem;
+  padding: 1rem;
+  align-items: start;
+}
+
+/* main is a column of fixed chrome (title, tabs, transport, filters) with the
+   grid taking whatever is left, so the grid scrolls INSIDE the window instead
+   of the window scrolling past it. That is what lets the model row freeze: a
+   sticky header needs a scroll container to be sticky within, and page scroll
+   cannot serve because each section is already a horizontal scroller (an
+   element with overflow-x: auto scrolls vertically too, and swallows the
+   sticking). max-height rather than height: a short grid keeps its natural
+   size and nothing is stretched to fill. */
+main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 5.2rem);
+  min-height: 0;
+}
+#grid-wrap {
+  flex: 1 1 auto;
+  /* A floor, so a window short enough that the chrome eats the column still
+     shows a grid (spilling past the fold) rather than a zero-height one. */
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+/* Everything above the grid is fixed furniture: it gives up no height, so the
+   shrinking lands on the grid and the filters never get squashed. */
+.segment-head,
+main > .tabs,
+main > .tab-note,
+main > .transport,
+main > .filters { flex: 0 0 auto; }
+
+/* --- segment picker ----------------------------------------------------- */
+
+.sidebar {
+  position: sticky;
+  top: 4.2rem;
+  display: flex;
+  flex-direction: column;
+  /* No gap: a gap is subtracted before the 3:7 shares are worked out, so it
+     would quietly turn the split into 28/67. The separation is drawn by the
+     picker's own padding-bottom and the divider on .pinned-wrap instead. */
+  gap: 0;
+  /* A FIXED height, not a max: the 30/70 split below is a share of the
+     sidebar, so the sidebar needs a definite size to take a share of. */
+  height: calc(100vh - 5.2rem);
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: var(--r2);
+  box-shadow: var(--sh-1);
+  padding: .75rem;
+}
+
+/* 3 and 7 against a zero basis, so the two parts land on exactly 30% / 70%
+   whatever they contain. min-height:0 on both, or a flex child refuses to
+   shrink below its content and the inner scrollers never engage. */
+.sidebar-picker {
+  flex: 3 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding-bottom: .6rem;
+}
+
+.sidebar input[type="search"],
+.sidebar select {
+  font: inherit;
+  font-size: .82rem;
+  width: 100%;
+  height: var(--ctl-h);
+  padding: 0 .55rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--hair);
+  border-radius: var(--r1);
+  transition: border-color .13s ease, background-color .13s ease;
+}
+.sidebar input[type="search"]:hover,
+.sidebar select:hover { border-color: var(--hair-strong); }
+.sidebar input[type="search"]:focus {
+  background: var(--surface);
+  border-color: var(--accent);
+}
+/* The chevron is drawn rather than native, so a select and a search field are
+   the same height and the same weight on every platform. */
+.sidebar select {
+  appearance: none;
+  padding-right: 1.5rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right .75rem center, right .52rem center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.sidebar input:focus-visible,
+.sidebar select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.seg-count { margin: 0; }
+
+.seg-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  /* Scroll containment: flicking through 200 segment rows should not start
+     scrolling the grid behind it. */
+  overscroll-behavior: contain;
+}
+
+.seg-row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  text-align: left;
+  font: inherit;
+  padding: .38rem .5rem .38rem .55rem;
+  border: 1px solid transparent;
+  border-radius: var(--r1);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color .12s ease;
+}
+.seg-row:hover { background: var(--surface-2); }
+/* The selected row is marked with a bar on its leading edge as well as a
+   tint. A tint alone disappears the moment the list is scrolled and the eye
+   has to re-find where it was. */
+.seg-row.is-selected {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.seg-row.is-selected::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .3rem;
+  bottom: .3rem;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--accent);
+}
+.seg-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.seg-id {
+  font-family: var(--mono);
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+.seg-meta { font-size: .7rem; color: var(--text-muted); }
+
+/* --- tabs ---------------------------------------------------------------- */
+
+/* One tab per row section. Underline rather than a pill row: the tabs sit
+   directly above a table whose own header row is a set of boxes, and two
+   competing boxed rows read as one confusing double header. */
+.tabs {
+  display: flex;
+  align-items: stretch;
+  gap: .15rem;
+  margin: .1rem 0 .55rem;
+  border-bottom: 1px solid var(--hair);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tabs[hidden] { display: none; }
+
+.tab {
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-muted);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: .4rem .7rem;
+  border-radius: var(--r1) var(--r1) 0 0;
+  cursor: pointer;
+  transition: color .12s ease, background .12s ease;
+}
+.tab:hover { color: var(--text); background: var(--surface-2); }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tab.is-active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: none;
+}
+
+/* The active section's note. Same text the stacked page printed beside each
+   section heading, printed once here because only one section is on screen. */
+.tab-note {
+  margin: -.25rem 0 .5rem;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.tab-note[hidden] { display: none; }
+
+/* --- transport ---------------------------------------------------------- */
+
+.segment-head { margin-bottom: .5rem; }
+.segment-head h2 { overflow-wrap: anywhere; }
+
+/* One transport for every clip on screen, shaped as a single pill so it reads
+   as one control rather than as a row of unrelated widgets. */
+.transport {
+  position: sticky;
+  top: 3.6rem;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  flex-wrap: wrap;
+  padding: .4rem .5rem;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid var(--hair);
+  border-radius: var(--r3);
+  box-shadow: var(--sh-1);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .transport { background: var(--surface); }
+}
+.transport .btn { border-radius: 999px; }
+.transport .toggle { padding: 0 .35rem; }
+
+/* The scrub bar is drawn rather than native, so the played portion of the
+   segment is legible at a glance instead of being implied by a thumb.
+   --pos is a percentage fed by Transport._render(). */
+#t-scrub {
+  flex: 1 1 12rem;
+  min-width: 8rem;
+  height: var(--ctl-h);
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+#t-scrub::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) 0 / var(--pos, 0%) 100% no-repeat,
+    var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--hair);
+}
+#t-scrub::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) 0 / var(--pos, 0%) 100% no-repeat,
+    var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--hair);
+}
+#t-scrub::-webkit-slider-thumb {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: var(--sh-1);
+  transition: transform .1s ease;
+}
+#t-scrub::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--surface);
+}
+#t-scrub:hover::-webkit-slider-thumb { transform: scale(1.15); }
+
+.time {
+  font-family: var(--mono);
+  font-size: .76rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 6.5rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.toggle input { accent-color: var(--accent); }
+
+/* The budget readout. It goes amber when the concurrency cap is actually
+   biting, because an unexplained still frame otherwise reads as a bug. It is
+   a status line about the bar above it, so it is set apart from the controls
+   rather than crowded against them. */
+.budget {
+  flex-basis: 100%;
+  margin: .1rem .1rem -.1rem;
+  padding-top: .3rem;
+  border-top: 1px solid var(--hair);
+  font-size: .74rem;
+}
+.budget:empty { display: none; }
+.budget.is-capped { color: var(--warn); font-weight: 600; }
+
+/* --- filters ------------------------------------------------------------ */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin: .7rem 0;
+}
+.filters:empty { display: none; }
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .3rem;
+  margin: 0;
+  padding: .45rem .6rem .55rem;
+  border: 1px solid var(--hair);
+  border-radius: var(--r2);
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+}
+/* A <legend> inside a flex fieldset is placed inconsistently across engines.
+   Giving it the whole first line makes it deterministic, and it is the right
+   shape anyway: the group name labels the row of chips beneath it. */
+.filter-group legend {
+  flex: 0 0 100%;
+  padding: 0 0 .1rem;
+  font-size: .64rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* Toggle chips, not checkboxes.
+   There are four groups here and the method-variant group alone runs to ten
+   long labels; as checkbox rows that is the loudest thing on the page and it
+   sits directly above the evidence. As chips the same information reads as
+   one bar of state -- lit means shown -- and the eye can skip it entirely
+   once it is set. The native input is still there, still focusable and still
+   announced; it is only the box that is gone, and `input:checked + span`
+   needs no :has() so this works everywhere. */
+.filter-opt {
+  position: relative;
+  display: inline-flex;
+  font-size: .76rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.filter-opt input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+.filter-opt span {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  height: 1.6rem;
+  padding: 0 .6rem;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  transition: background-color .13s ease, border-color .13s ease,
+              color .13s ease, box-shadow .13s ease;
+}
+/* The dot is the state. Lit and filled means this one is on screen. */
+.filter-opt span::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hair-strong);
+  flex: none;
+  transition: background-color .13s ease;
+}
+.filter-opt:hover span { border-color: var(--hair-strong); color: var(--text); }
+.filter-opt input:checked + span {
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 42%, transparent);
+}
+.filter-opt input:checked + span::before { background: var(--accent); }
+.filter-opt input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.filter-reset {
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 600;
+  height: 1.6rem;
+  padding: 0 .6rem;
+  margin-left: .15rem;
+  border: 1px dashed var(--hair-strong);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color .13s ease, color .13s ease;
+}
+.filter-reset:hover { border-color: var(--accent); color: var(--accent); }
+.filter-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* --- reference strip ---------------------------------------------------- */
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .64rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: .35rem;
+}
+.section-label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.pinned-wrap {
+  flex: 7 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  border-top: 1px solid var(--hair);
+  padding-top: .65rem;
+}
+/* hidden wins over the flex display above, so the picker takes the whole
+   sidebar when no segment is chosen yet. */
+.pinned-wrap[hidden] { display: none; }
+
+.pinned-strip {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+/* The strip is a flex column and the panel has a fixed share of the sidebar,
+   so two clips that do not fit are SHRUNK -- and because .cell clips its own
+   overflow while .cell-frame holds its 16:9, what got shrunk away was the
+   bottom of the picture and the whole caption underneath it. The clip was
+   cropped, which on a REFERENCE clip is the one thing that must never happen:
+   it is the thing every generated cell is judged against.
+
+   So the frame gives up the height instead of the cell. min-height: 0 is what
+   lets it: an item with an aspect-ratio has an automatic minimum size, and
+   without this it refuses to shrink and overflows again. The video is
+   object-fit: contain, so a frame shorter than 16:9 shows the WHOLE clip,
+   smaller, with the frame's own black to either side -- never a cropped one. */
+.pinned-strip .cell {
+  width: 100%;
+  flex: 0 1 auto;   /* shrink to fit; never grow past the clip's own size */
+  min-height: 0;
+}
+.pinned-strip .cell-frame {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.pinned-strip .cell-bar { flex: 0 0 auto; }
+
+/* --- grid --------------------------------------------------------------- */
+
+/* --- row sections ------------------------------------------------------- */
+
+/* Each section is its own small table with its own columns. That is the whole
+   point of the redesign: a section about method components shows only the
+   systems that have components, so the page is not 77% placeholder. */
+/* In tabs there is exactly one section on screen, so it takes the height the
+   column left it and scrolls inside. margin-bottom stays for the fallback
+   page, which still stacks its sections. */
+.rowsection {
+  margin: 0 0 1.4rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+#grid-wrap > .rowsection:only-child { flex: 1 1 auto; margin-bottom: 0; }
+
+/* Each section is a small table of its own, so its head has to read as a
+   heading and not as one more line of grey text among the notes. */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-bottom: .4rem;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid var(--hair);
+}
+.section-head h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -.015em;
+}
+.section-note {
+  flex: 1 1 20rem;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* overflow rather than shrinking columns: a section wider than the screen is
+   better scrolled than squeezed into illegibility. Vertically it is the scroll
+   container the frozen model row sticks to -- see the note on main. */
+.grid-wrap {
+  overflow: auto;
+  padding-bottom: .4rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.grid {
+  display: grid;
+  /* The cap is the max of every column track, so a wide window stops widening
+     the cells once a 16:9 picture would pass --frame-max-h, rather than
+     letterboxing the clip or forcing the row off screen. */
+  grid-template-columns:
+    var(--rowhead-w)
+    repeat(var(--cols), minmax(var(--cell-min), calc(var(--frame-max-h) * 16 / 9)));
+  justify-content: start;
+  gap: var(--gap);
+  align-items: stretch;
+  min-width: min-content;
+}
+
+.grid-corner,
+.grid-rowhead {
+  /* Sticks to the left edge while the grid scrolls sideways, so a cell is
+     never orphaned from the configuration it belongs to. */
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  padding-right: .3rem;
+}
+.grid-corner {
+  top: 0;
+  z-index: 4;   /* above both the frozen model row and the frozen row heads */
+  font-size: .64rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  font-weight: 700;
+  color: var(--text-muted);
+  align-items: flex-end;
+  padding-bottom: .35rem;
+}
+
+/* The declared row name -- the attribution the derived-axes grid never had. */
+.row-name {
+  font-size: .82rem;
+  font-weight: 650;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+/* THE FROZEN MODEL ROW. Which model a cell belongs to is the one thing a
+   viewer cannot recover from the cell itself, and it was the first thing to
+   leave the screen on a tall section. Opaque, because rows scroll beneath it. */
+.grid-colhead {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--bg);
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: .35rem;
+  margin-bottom: .1rem;
+  border-bottom: 1px solid var(--hair);
+}
+
+.system-head { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.system-name {
+  font-weight: 650;
+  font-size: .85rem;
+  letter-spacing: -.01em;
+  overflow-wrap: anywhere;
+}
+/* Closed-weight systems get a left rule so the two families are separable at
+   a glance without relying on colour alone. */
+.system-head.family-closed { border-left: 3px solid var(--accent); padding-left: .45rem; }
+.system-head.family-open { border-left: 3px solid var(--ok); padding-left: .45rem; }
+.system-head.family-closed, .system-head.family-open { border-radius: 2px 0 0 2px; }
+
+.axis-stack { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.chip {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  min-width: 0;
+}
+.chip-k {
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-muted);
+}
+.chip-v { font-size: .76rem; font-weight: 600; overflow-wrap: anywhere; }
+
+/* --- cells -------------------------------------------------------------- */
+
+.cell {
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: var(--r2);
+  box-shadow: var(--sh-1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  transition: box-shadow .13s ease, border-color .13s ease;
+}
+/* A ring on hover rather than a lift. Thirty cells that rise as the pointer
+   crosses them is a page that will not hold still, and holding still is the
+   entire job of a comparison grid. */
+.cell:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent), var(--sh-1);
+}
+
+.cell-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  /* The column cap normally binds first and keeps the aspect ratio intact.
+     This is the backstop for the places with no column to cap -- the pinned
+     reference strip, a stacked cell -- where a very short window would still
+     be allowed to produce a picture taller than the screen. */
+  max-height: var(--frame-max-h);
+  background: #000;
+  cursor: zoom-in;
+}
+.cell-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.cell-bar {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .25rem .4rem;
+  border-top: 1px solid var(--hair);
+  font-size: .7rem;
+}
+/* The caption is the per-cell attribution -- which exact run this is -- so it
+   gets two lines rather than one ellipsised one. Columns are ~180px wide and
+   "Cinematic prompt · Baseline · Run 1" does not fit on one. */
+.cell-caption {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow-wrap: anywhere;
+}
+.cell-zoom {
+  font: inherit;
+  font-size: .78rem;
+  line-height: 1;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color .13s ease, color .13s ease;
+}
+.cell-zoom:hover { background: var(--surface-2); color: var(--accent); }
+.cell-zoom:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Shown when the cell holds no <video>: waiting for a slot from the pool, or
+   autoplay refused. Covers the frame so a still image can never be mistaken
+   for a playing clip. It is a button, so keyboard users reach it. */
+.cell-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  background: rgba(0, 0, 0, .55);
+  color: #fff;
+  border: 0;
+  font: inherit;
+  font-size: .7rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 2;
+}
+.cell-overlay[hidden] { display: none; }
+.cell-overlay:disabled { cursor: default; }
+.cell-overlay .play-glyph {
+  font-size: 1rem;
+  line-height: 1;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: .15rem;
+  transition: background-color .13s ease, transform .13s ease;
+}
+.cell-overlay:hover .play-glyph { background: rgba(255, 255, 255, .34); transform: scale(1.06); }
+.cell-overlay:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
+
+.cell-failed .cell-overlay { background: rgba(0, 0, 0, .75); }
+
+/* Reference clips: a heavier, tinted border so they never read as one of the
+   candidates being judged, and a dot on the caption so the distinction does
+   not rest on the border weight alone. */
+.cell-pinned {
+  border-color: color-mix(in srgb, var(--ok) 60%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ok) 35%, transparent), var(--sh-1);
+}
+.cell-pinned:hover {
+  border-color: var(--ok);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ok) 55%, transparent), var(--sh-1);
+}
+.cell-pinned .cell-bar { border-top-color: color-mix(in srgb, var(--ok) 30%, transparent); }
+.cell-pinned .cell-caption {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  color: var(--ok);
+  font-weight: 650;
+  -webkit-line-clamp: 1;
+}
+.cell-pinned .cell-caption::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex: none;
+}
+
+/* Three reasons a cell is empty, and they do not mean the same thing.
+
+   .cell-none     this system is not part of this row -- the ordinary, expected
+                  case now that sections carry their own columns. Deliberately
+                  the quietest thing on the page: a rule, not a warning.
+   .cell-missing  the row says this system has a run and the shard does not
+                  carry it. That IS an anomaly, so it keeps the hatching.
+   .cell-filtered the viewer's own filter hid it; say so, so an empty cell is
+                  never mistaken for missing data. */
+.cell-empty .cell-frame { background: none; cursor: default; display: flex; }
+.missing-text {
+  margin: auto;
+  font-size: .7rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: .2rem;
+}
+
+.cell-none {
+  background: none;
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--border) 55%, transparent);
+  box-shadow: none;
+}
+.cell-none:hover { box-shadow: none; }
+.cell-none .missing-text { color: color-mix(in srgb, var(--text-muted) 55%, transparent); }
+
+.cell-missing {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--surface) 0 6px,
+    var(--surface-2) 6px 12px
+  );
+  border-style: dashed;
+}
+
+.cell-filtered {
+  background: var(--surface);
+  border-style: dashed;
+}
+.cell-filtered .missing-text { font-style: italic; }
+
+/* Two runs that both satisfy one row. Rare, and better shown than hidden. */
+.cell-stack { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+/* --- enlarge dialog ----------------------------------------------------- */
+
+.zoom {
+  border: 1px solid var(--hair);
+  border-radius: var(--r3);
+  background: var(--surface);
+  color: var(--text);
+  padding: .6rem;
+  max-width: min(92vw, 1100px);
+  width: 92vw;
+  box-shadow: var(--sh-2);
+}
+.zoom[open] { animation: zoom-in .16s cubic-bezier(.2, .7, .3, 1); }
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+.zoom::backdrop {
+  background: rgba(8, 11, 16, .62);
+  backdrop-filter: blur(3px);
+}
+.zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .55rem;
+  font-size: .85rem;
+  font-weight: 600;
+}
+.zoom-bar span { flex: 1; min-width: 0; }
+#zoom-title {
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: -.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.zoom video {
+  display: block;
+  width: 100%;
+  max-height: var(--cell-max-h);
+  background: #000;
+  border-radius: var(--r2);
+}
+
+/* --- narrow screens ----------------------------------------------------- */
+
+/* 1366px is the target laptop. Below ~1080 the sidebar stops paying for its
+   width and moves above the grid. */
+@media (max-width: 1080px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  /* The 30/70 split is a two-column idea. Stacked, the sidebar sizes to its
+     content instead, and the reference clips go back to a side-by-side strip
+     so they cost one row rather than two screens. */
+  .sidebar { position: static; height: auto; max-height: none; }
+  .sidebar-picker { flex: 0 1 auto; }
+  .seg-list { max-height: 30vh; }
+  .pinned-wrap { flex: 0 1 auto; }
+  .pinned-strip { flex-direction: row; flex-wrap: wrap; overflow-y: visible; }
+  .pinned-strip .cell { width: 260px; }
+  .transport { top: 0; }
+  /* Stacked, main is the whole page rather than one column of it, so it grows
+     to its content and the page scrolls. The grid keeps a scroll container of
+     its own, so the model row stays frozen either way. */
+  main { max-height: none; }
+  #grid-wrap { min-height: 0; }
+  .grid-wrap { max-height: calc(100vh - 8rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
