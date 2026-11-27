@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Video continuation comparison</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127909;</text></svg>">
+
+<!-- BEFORE FIRST PAINT, and deliberately inline for that reason: a stored
+     choice applied from a module would arrive after the page had already been
+     drawn in the other theme, and every load would start with a flash of
+     white.
+
+     The attribute is set ONLY when the viewer has actually chosen. Left unset,
+     the stylesheet's media query decides, and it keeps deciding -- the page
+     follows the machine when it flips at sunset. Writing the OS value into the
+     attribute here would have pinned it to whatever it happened to be on the
+     first visit. -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem("vwood_theme");
+      if (t === "light" || t === "dark") {
+        document.documentElement.setAttribute("data-theme", t);
+      }
+    } catch (e) { /* storage blocked: the media query decides, which is fine */ }
+  })();
+</script>
+
+<link rel="stylesheet" href="styles.css?v=8963beab725f">
+</head>
+<!-- page-compare scopes this page's layout rules.
+
+     styles.css is SHARED: annot/ loads it as its base and then its own sheet on
+     top. Its shell is the same markup (.layout, .sidebar, .pinned-wrap) doing a
+     different job -- a review instrument, where the reference clips belong in
+     the side column and the column wants its width. So everything below that
+     moves furniture around is scoped to this class rather than written on the
+     shared selectors, and annot/ is untouched by it. -->
+<body class="page-compare">
+
+<!-- Shown until index.json has parsed. -->
+<div id="loading" class="panel">
+  <div class="spinner" aria-hidden="true"></div>
+  <p>Loading&hellip;</p>
+</div>
+
+<div id="error" class="panel" hidden>
+  <h1>Something went wrong</h1>
+  <p id="error-text"></p>
+</div>
+
+<div id="app" hidden>
+
+  <header class="topbar">
+    <button type="button" class="btn is-icon sidebar-toggle" id="toggle-sidebar"
+            title="Toggle sidebar (B)" aria-label="Toggle sidebar" aria-expanded="true">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+        <line x1="9" y1="3" x2="9" y2="21"></line>
+      </svg>
+    </button>
+    <div class="topbar-title">
+      <div class="brand-badge">
+        <span class="brand-tag">OOD</span>
+        <h1 id="site-title">Video continuation comparison</h1>
+      </div>
+      <p id="site-desc" class="muted small">Every continuation of one segment, playing together.</p>
+    </div>
+    <div class="topbar-actions">
+      <span id="copy-note" class="copy-note" role="status" hidden></span>
+      <button type="button" class="btn btn-icon-text" id="open-help" title="Guide &amp; keyboard shortcuts (?)">
+        <svg class="nav-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Guide</span>
+      </button>
+      <button type="button" class="btn btn-icon-text" id="copy-link" title="Copy a link to this exact view">
+        <svg class="nav-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        <span>Copy link</span>
+      </button>
+      <button type="button" class="btn theme-btn is-icon" data-theme-toggle title="Toggle theme"></button>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ---- segment picker ------------------------------------------- -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Top: choose a segment. Bottom: the reference clips for the one
+           chosen, which belong beside the generated ones rather than above
+           them -- a viewer compares against the real continuation constantly,
+           and scrolling the grid used to carry it off screen. -->
+      <div class="sidebar-picker">
+        <div class="picker-controls">
+          <label class="sr-only" for="seg-search">Search segments</label>
+          <input type="search" id="seg-search" placeholder="Search segments&hellip;"
+                 autocomplete="off" spellcheck="false">
+          <label class="sr-only" for="seg-dataset">Dataset</label>
+          <select id="seg-dataset">
+            <option value="">All datasets</option>
+          </select>
+        </div>
+        <p id="seg-count" class="muted small seg-count"></p>
+        <div id="seg-list" class="seg-list"></div>
+      </div>
+
+      <section id="pinned-wrap" class="pinned-wrap" hidden>
+        <h3 class="section-label">Reference</h3>
+        <div id="pinned-strip" class="pinned-strip"></div>
+      </section>
+    </aside>
+
+    <!-- ---- the comparison ------------------------------------------- -->
+    <main>
+
+      <!-- Compact segment header: segment switcher, id, clean clip summary,
+           model-family legend, and single-section note (when tabs are hidden). -->
+      <div class="segbar">
+        <div class="segbar-row">
+          <div class="segbar-left">
+            <div class="seg-nav" role="group" aria-label="Segment navigation">
+              <button type="button" class="btn is-icon seg-nav-btn" id="seg-prev"
+                      title="Previous segment ([)" aria-label="Previous segment">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button type="button" class="btn is-icon seg-nav-btn" id="seg-next"
+                      title="Next segment (])" aria-label="Next segment">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+              <button type="button" class="btn is-icon seg-nav-btn" id="seg-rand"
+                      title="Random segment" aria-label="Random segment">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+              </button>
+            </div>
+            <div class="segbar-title-wrap">
+              <h2 id="segment-title"></h2>
+            </div>
+            <span id="segment-meta" class="muted small"></span>
+          </div>
+
+          <div class="segbar-right">
+            <div class="family-legend" aria-label="Model family legend">
+              <span class="legend-item legend-closed">Closed API</span>
+              <span class="legend-item legend-open">Open weights</span>
+            </div>
+          </div>
+        </div>
+        <p id="segbar-note" class="segbar-note muted small" hidden></p>
+      </div>
+
+      <!-- One transport for every clip on screen, with semantic filters beside it. -->
+      <div class="workbar">
+        <div class="transport">
+          <button type="button" class="btn primary" id="t-play" title="Play all (Space)">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>Play</span>
+          </button>
+          <button type="button" class="btn primary" id="t-pause" title="Pause all (Space)" hidden>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            <span>Pause</span>
+          </button>
+          <button type="button" class="btn is-icon t-icon" id="t-restart" title="Restart and re-sync (R)" aria-label="Restart">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+          </button>
+
+          <div class="t-step-group" role="group" aria-label="Frame step">
+            <button type="button" class="btn is-icon t-icon" id="t-step-back" title="Step back one frame (,)" aria-label="Step back one frame">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="2.5" height="14"></rect><polygon points="19 5 9 12 19 19 19 5"></polygon></svg>
+            </button>
+            <button type="button" class="btn is-icon t-icon" id="t-step-fwd" title="Step forward one frame (.)" aria-label="Step forward one frame">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><polygon points="5 5 15 12 5 19 5 5"></polygon><rect x="16.5" y="5" width="2.5" height="14"></rect></svg>
+            </button>
+          </div>
+
+          <button type="button" class="btn t-pnr" id="t-pnr" title="Jump to continuation start / context end (P)" hidden>
+            <span class="pnr-dot" aria-hidden="true"></span>
+            <span id="t-pnr-label">PNR</span>
+          </button>
+
+          <div class="scrub-wrap" id="t-scrub-wrap">
+            <input type="range" id="t-scrub" min="0" max="1000" value="0" step="1"
+                   aria-label="Seek all clips">
+            <span id="t-pnr-mark" class="pnr-mark" hidden aria-hidden="true"></span>
+          </div>
+
+          <span id="t-time" class="time muted small">&ndash;</span>
+
+          <label class="sr-only" for="t-speed">Playback speed</label>
+          <select id="t-speed" class="speed-select" title="Playback speed">
+            <option value="0.25">0.25&times;</option>
+            <option value="0.5">0.5&times;</option>
+            <option value="1" selected>1&times;</option>
+            <option value="1.5">1.5&times;</option>
+            <option value="2">2&times;</option>
+          </select>
+
+          <label class="toggle" title="Loop every clip">
+            <input type="checkbox" id="t-loop" checked><span>Loop</span>
+          </label>
+
+          <span id="t-budget" class="budget muted small"></span>
+        </div>
+
+        <span class="bar-sep" aria-hidden="true"></span>
+
+        <div id="filters" class="filters"></div>
+      </div>
+
+      <!-- The declared comparisons, shown only when 2+ sections exist. -->
+      <div id="tabbar" class="tabbar" hidden>
+        <nav id="tabs" class="tabs" role="tablist" aria-label="Comparison"></nav>
+        <span id="tab-note" class="tab-note muted small" hidden></span>
+      </div>
+
+      <div id="grid-wrap"></div>
+
+      <p id="empty" class="notice" hidden>Choose a segment on the left to begin.</p>
+
+    </main>
+  </div>
+</div>
+
+<!-- Enlarge one clip, with optional side-by-side comparison against Real continuation
+     and arrow-key stepping across visible generated clips. -->
+<dialog id="zoom" class="zoom">
+  <div class="zoom-bar">
+    <div class="zoom-nav" id="zoom-nav" hidden>
+      <button type="button" class="btn is-icon" id="zoom-prev" title="Previous clip (←)" aria-label="Previous clip">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <span id="zoom-pos" class="zoom-pos muted small"></span>
+      <button type="button" class="btn is-icon" id="zoom-next" title="Next clip (→)" aria-label="Next clip">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+    <span id="zoom-title"></span>
+    <div class="zoom-actions">
+      <button type="button" class="btn btn-icon-text" id="zoom-compare" aria-pressed="false" hidden
+              title="Toggle side-by-side comparison against the real continuation (C)">
+        <span>Compare w/ Real</span>
+      </button>
+      <label class="sr-only" for="zoom-speed">Enlarge playback speed</label>
+      <select id="zoom-speed" class="speed-select" title="Playback speed">
+        <option value="0.25">0.25&times;</option>
+        <option value="0.5">0.5&times;</option>
+        <option value="1" selected>1&times;</option>
+        <option value="1.5">1.5&times;</option>
+        <option value="2">2&times;</option>
+      </select>
+      <button type="button" class="btn" id="zoom-close">Close</button>
+    </div>
+  </div>
+
+  <div class="zoom-stage" id="zoom-stage">
+    <div class="zoom-pane zoom-pane-ref" id="zoom-ref-pane" hidden>
+      <span class="zoom-pill zoom-pill-ref">Real continuation</span>
+      <video id="zoom-ref-video" muted playsinline disablepictureinpicture></video>
+    </div>
+    <div class="zoom-pane zoom-pane-main">
+      <span class="zoom-pill zoom-pill-main" id="zoom-main-pill" hidden></span>
+      <video id="zoom-video" muted playsinline controls disablepictureinpicture></video>
+    </div>
+  </div>
+
+  <!-- Synced transport shown during side-by-side comparison so both videos scrub together. -->
+  <div class="zoom-transport" id="zoom-transport" hidden>
+    <button type="button" class="btn primary" id="zt-play">Play both</button>
+    <button type="button" class="btn primary" id="zt-pause" hidden>Pause</button>
+    <button type="button" class="btn" id="zt-restart">Restart</button>
+    <button type="button" class="btn t-pnr" id="zt-pnr" hidden>
+      <span class="pnr-dot" aria-hidden="true"></span>
+      <span>PNR</span>
+    </button>
+    <input type="range" id="zt-scrub" min="0" max="1000" value="0" step="1" aria-label="Seek both videos">
+    <span id="zt-time" class="time muted small">&ndash;</span>
+  </div>
+</dialog>
+
+<!-- Compact reviewer guide & keyboard shortcuts modal. -->
+<dialog id="help-dialog" class="help-dialog">
+  <div class="zoom-bar">
+    <span class="help-heading">Guide &amp; Keyboard Shortcuts</span>
+    <button type="button" class="btn" id="help-close">Close</button>
+  </div>
+  <div class="help-body">
+    <section class="help-section">
+      <h4>How to read this comparison</h4>
+      <ul>
+        <li><strong>Reference rail (left):</strong> Input <em>Context</em> clip above and <em>Real continuation</em> below, sized to match a grid cell.</li>
+        <li><strong>Columns:</strong> <span class="legend-inline legend-closed">Closed API</span> models are prompted directly; <span class="legend-inline legend-open">Open weights</span> models run their full component stack.</li>
+        <li><strong>Rows:</strong> <em>Zero-shot</em> uses the baseline prompt; <em>Detection-conditioned</em> provides detected event/object context.</li>
+        <li><strong>Timeline &amp; durations:</strong> All clips play on one shared absolute-seconds clock. The <strong class="help-amber">amber notch (PNR)</strong> marks where context ends and continuation starts. Shorter clips park on their last frame (marked <em>Ended</em>) while longer clips finish.</li>
+      </ul>
+    </section>
+    <section class="help-section">
+      <h4>Keyboard shortcuts</h4>
+      <div class="shortcut-grid">
+        <div class="shortcut-item"><kbd>Space</kbd><span>Play / Pause all</span></div>
+        <div class="shortcut-item"><kbd>R</kbd><span>Restart &amp; re-sync</span></div>
+        <div class="shortcut-item"><kbd>P</kbd><span>Jump to continuation (PNR)</span></div>
+        <div class="shortcut-item"><kbd>,</kbd> <kbd>.</kbd><span>Step back / forward 1 frame</span></div>
+        <div class="shortcut-item"><kbd>[</kbd> <kbd>]</kbd><span>Previous / Next segment</span></div>
+        <div class="shortcut-item"><kbd>B</kbd><span>Toggle sidebar</span></div>
+        <div class="shortcut-item"><kbd>&larr;</kbd> <kbd>&rarr;</kbd><span>Step clips in Enlarge view</span></div>
+        <div class="shortcut-item"><kbd>C</kbd><span>Compare w/ Real in Enlarge view</span></div>
+        <div class="shortcut-item"><kbd>?</kbd><span>Open / close this guide</span></div>
+        <div class="shortcut-item"><kbd>Esc</kbd><span>Close menus or dialogs</span></div>
+      </div>
+    </section>
+  </div>
+</dialog>
+
+<script type="module" src="js/app.js?v=8963beab725f"></script>
+</body>
+</html>
